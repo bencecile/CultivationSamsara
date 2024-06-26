@@ -1,0 +1,27 @@
+{
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.vue"
+  ],
+  "compilerOptions": {
+    "strict": true,
+    "declaration": false,
+    "noEmit": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "isolatedModules": true,
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "types": [
+      "vite/client",
+      "node"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+    }
+  }
+}

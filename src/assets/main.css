@@ -1,0 +1,16 @@
+@media only screen and (max-aspect-ratio: 1/1) {
+
+  /* Portrait */
+  body {
+    font-size: 20px;
+    border: 2px solid red;
+  }
+}
+
+@media only screen and (min-aspect-ratio: 1/1) {
+
+  /* Landscape */
+  body {
+    font-size: 30px;
+  }
+}
