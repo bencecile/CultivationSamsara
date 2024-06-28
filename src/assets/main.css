@@ -1,16 +1,19 @@
-@media only screen and (max-aspect-ratio: 1/1) {
-
-  /* Portrait */
-  body {
-    font-size: 20px;
-    border: 2px solid red;
-  }
+body {
+    font-family: serif;
+    line-height: 1.5em;
+    background: rgb(209, 188, 160);
 }
 
-@media only screen and (min-aspect-ratio: 1/1) {
+/* Portrait */
+@media only screen and (max-aspect-ratio: 1/1) {
+    body {
+        font-size: 20px;
+    }
+}
 
-  /* Landscape */
-  body {
-    font-size: 30px;
-  }
+/* Landscape */
+@media only screen and (min-aspect-ratio: 1/1) {
+    body {
+        font-size: 30px;
+    }
 }
