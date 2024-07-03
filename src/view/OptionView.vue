@@ -14,14 +14,26 @@ const LANGS = [
 <template>
     <PopupWindow :title="State.lang.options">
         <div id="optionView">
-            <div id="optionViewLanguageSection">
+            <div class="optionViewSection">
                 <div id="optionViewLanguageHeader">{{ State.lang.language }}</div>
                 <button v-for="{ lang, value } in LANGS"
                     :class="{ selectedLang: lang === State.lang.lang, langButton: true }" @click="State.setLang(lang)">
                     {{ value }}
                 </button>
             </div>
-            <div id="optionViewGithubSection">
+            <div class="optionViewSection">
+                TODO Game options
+            </div>
+            <div class="optionViewSection">
+                TODO Save
+            </div>
+            <div class="optionViewSection">
+                TODO Game title, game version, game patch notes, author name, cultivation wiki page
+            </div>
+            <div class="optionViewSection">
+                TODO Shortcut keys
+            </div>
+            <div class="optionViewSection">
                 <a href="https://github.com/bencecile/CultivationSamsara" target="_blank">
                     {{ State.lang.githubLink }}
                 </a>
@@ -37,7 +49,7 @@ const LANGS = [
     gap: 10px;
 }
 
-#optionView>div {
+.optionViewSection {
     display: block;
     width: calc(100% - 20px - 4px);
     border: 2px solid black;
@@ -46,7 +58,7 @@ const LANGS = [
 }
 
 #optionViewLanguageHeader {
-    font-size: 120%;
+    font-size: 1.2em;
     text-align: center;
     width: 100%;
     margin-bottom: 10px;
@@ -58,7 +70,7 @@ const LANGS = [
 
 .langButton {
     display: block;
-    width: 10em;
+    width: 7.5em;
     height: 2em;
     margin-bottom: 5px;
     margin-left: auto;

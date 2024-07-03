@@ -1,17 +1,20 @@
 <script setup lang="ts">
-import { Job } from '@/state/action/Jobs';
+import State from '@/state';
+import { Job } from '@/state/ActionState';
 import GoldDisplay from "@/view/components/GoldDisplay.vue";
+import LangStringDisplay from "@/view/components/LangStringDisplay.vue";
 
 defineProps<{
-    name: string,
     job: Job,
 }>();
 </script>
 
 <template>
     <div class="jobItem">
-        <div>{{ name }}</div>
-        <GoldDisplay :gold="job.basePay" />
+        <div>{{ State.lang[job.name] }}</div>
+        <LangStringDisplay :langString="State.lang.perDay">
+            <GoldDisplay :gold="job.basePay" />
+        </LangStringDisplay>
     </div>
 </template>
 

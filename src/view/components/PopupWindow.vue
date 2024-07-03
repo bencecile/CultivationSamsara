@@ -37,6 +37,7 @@ defineProps<{
 
 .popupWindow {
     display: block;
+    overflow-y: scroll;
     position: absolute;
     z-index: 2;
     left: 0;
@@ -49,6 +50,9 @@ defineProps<{
 
 .popupWindowBanner {
     display: grid;
+    position: sticky;
+    top: 0;
+    background: white;
     grid-template-columns: 1fr 1.5em;
     align-items: center;
     margin: 5px 10px 0 10px;
@@ -62,7 +66,6 @@ defineProps<{
     font-size: 1.5em;
     font-weight: bold;
     text-align: center;
-    /* transform: translate(0.45em); */
 }
 
 .popupWindowCloseButton {
@@ -78,7 +81,6 @@ defineProps<{
 }
 
 .popupWindowBody {
-    overflow-y: scroll;
     padding: 10px;
 }
 

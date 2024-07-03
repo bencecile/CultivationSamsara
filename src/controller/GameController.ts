@@ -1,19 +1,22 @@
+import State from "@/state";
+
 class GameController {
     lastRequestId = 0;
     lastMs: number = performance.now();
     readonly processors: Map<string, Processor> = new Map();
 
     hookGameLoop() {
-        this.lastRequestId = window.requestAnimationFrame(this.processGameLoop);
+        this.lastRequestId = window.requestAnimationFrame(updateTimeStamp => this.processGameLoop(updateTimeStamp));
     }
 
     processGameLoop(updateTimeStamp: number) {
         const deltaMs = updateTimeStamp - this.lastMs;
 
-        // TODO Check for the set update time from options to skip this processing or not
-
-        this.processors.forEach(p => p.process(deltaMs));
-        this.lastMs = updateTimeStamp;
+        // Only update if we are set to by the update time
+        if (deltaMs >= State.option.updateTime) {
+            this.processors.forEach(p => p.process(deltaMs));
+            this.lastMs = updateTimeStamp;
+        }
 
         this.hookGameLoop();
     }
