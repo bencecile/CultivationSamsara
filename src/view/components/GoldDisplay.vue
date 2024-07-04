@@ -7,24 +7,24 @@ defineProps<{
 </script>
 
 <template>
-    <div class="goldDisplay">
+    <span class="goldDisplay">
         <!-- TODO Replace spans of coloured text with images -->
-        <div v-if="gold.gold > 0">
-            {{ gold.gold }}<span class="goldUnit" style="color: gold">{{ State.lang.goldUnitGold }}</span>
-        </div>
-        <div v-if="gold.silver > 0">
-            {{ gold.silver }}<span class="goldUnit" style="color: silver">{{ State.lang.goldUnitSilver }}</span>
-        </div>
-        <div>
-            {{ gold.copper }}<span class="goldUnit" style="color: #B87333">{{ State.lang.goldUnitCopper }}</span>
-        </div>
-    </div>
+        <span v-if="gold.gold > 0">
+            {{ gold.gold }}<span class="goldUnit" style="color: gold">{{ State.lang.units.gold.gold }}</span>
+        </span>
+        <span v-if="gold.silver > 0">
+            {{ gold.silver }}<span class="goldUnit" style="color: silver">{{ State.lang.units.gold.silver }}</span>
+        </span>
+        <span>
+            {{ gold.copper }}<span class="goldUnit" style="color: #B87333">{{ State.lang.units.gold.copper }}</span>
+        </span>
+    </span>
 </template>
 
 <style scoped>
 .goldDisplay {
-    display: inline;
-    width: fit-content;
+    display: flex;
+    gap: 0.5em;
 }
 
 .goldUnit {

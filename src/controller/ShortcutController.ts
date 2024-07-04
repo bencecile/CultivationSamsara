@@ -3,8 +3,8 @@ class ShortcutController {
     isKeyPressed = false;
 
     hookGlobalKeyPresses() {
-        window.onkeydown = (event: KeyboardEvent) => {
-            if (this.isKeyPressed)
+        window.onkeydown = (event?: KeyboardEvent) => {
+            if (!event || this.shouldIgnoreKeypress(event) || this.isKeyPressed)
                 return;
             this.isKeyPressed = true;
 
@@ -12,7 +12,9 @@ class ShortcutController {
             if (keyFn)
                 keyFn();
         };
-        window.onkeyup = () => {
+        window.onkeyup = (event?: KeyboardEvent) => {
+            if (!event || this.shouldIgnoreKeypress(event))
+                return;
             this.isKeyPressed = false;
         };
     }
@@ -27,6 +29,26 @@ class ShortcutController {
 
     removeKeyFn(key: string) {
         this.keyMap.delete(key);
+    }
+
+    private shouldIgnoreKeypress(event: KeyboardEvent) {
+        if (event.isComposing)
+            return true;
+        switch (event.code) {
+            case "AltLeft":
+            case "AltRight":
+            case "ShiftLeft":
+            case "ShiftRight":
+            case "ControlLeft":
+            case "ControlRight":
+            case "MetaLeft":
+            case "MetaRight":
+            case "Tab":
+            case "CapsLock":
+            case "ContextMenu":
+                return true;
+        }
+        return false;
     }
 }
 export default new ShortcutController();

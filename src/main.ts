@@ -10,6 +10,7 @@ import SaveController from './controller/SaveController';
 import GameController from './controller/GameController';
 import AutoSaveProcessor from './controller/processor/AutoSaveProcessor';
 import ShortcutController from './controller/ShortcutController';
+import TimeController from './controller/TimeController';
 
 MetaController.setWindowResize();
 ActionController.unlockFarmer();
@@ -24,6 +25,7 @@ app.mount('#app');
 
 GameController.hookGameLoop();
 
-GameController.addProcessor(new AutoSaveProcessor());
+GameController.addProcessor(AutoSaveProcessor);
 
 ShortcutController.hookGlobalKeyPresses();
+ShortcutController.addKeyFn(" ", () => TimeController.toggleFlowOfTime());

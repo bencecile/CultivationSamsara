@@ -11,7 +11,7 @@ export default class Gold {
     }
 
     constructor(totalCopper: number) {
-        this.totalCopper = totalCopper;
+        this.totalCopper = Math.floor(totalCopper);
     }
     static asGold(gold: number, silver: number, copper: number): Gold {
         return new Gold(gold * 10000 + silver * 100 + copper);

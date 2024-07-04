@@ -4,6 +4,7 @@ import Language, { LANG_MAP, LangName } from "@/i18n/Language";
 import { reactive } from 'vue';
 import OptionState from "./state/OptionState";
 import CharacterState from "./state/CharacterState";
+import TimeState from "./state/TimeState";
 
 export class GameState {
     lastSaveDate?: Date;
@@ -11,6 +12,7 @@ export class GameState {
     readonly action = new ActionState();
     readonly meta = new MetaState();
     readonly option = new OptionState();
+    readonly time = new TimeState();
     lang: Language = LANG_MAP.getLanguage(LangName.En);
 
     setLang(lang: LangName) {

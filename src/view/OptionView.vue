@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import State from '@/state';
+import LangController from "@/controller/LangController";
 import PopupWindow from "./components/PopupWindow.vue";
 import { LANG_MAP, LangName } from "@/i18n/Language";
 
@@ -12,12 +13,12 @@ const LANGS = [
 </script>
 
 <template>
-    <PopupWindow :title="State.lang.options">
+    <PopupWindow :title="State.lang.titles.options">
         <div id="optionView">
             <div class="optionViewSection">
-                <div id="optionViewLanguageHeader">{{ State.lang.language }}</div>
-                <button v-for="{ lang, value } in LANGS"
-                    :class="{ selectedLang: lang === State.lang.lang, langButton: true }" @click="State.setLang(lang)">
+                <div id="optionViewLanguageHeader">{{ State.lang.titles.language }}</div>
+                <button v-for="{ lang, value } in LANGS" class="langButton"
+                    :class="{ selectedLang: lang === State.lang.lang }" @click="LangController.setLang(lang, true)">
                     {{ value }}
                 </button>
             </div>
@@ -25,7 +26,7 @@ const LANGS = [
                 TODO Game options
             </div>
             <div class="optionViewSection">
-                TODO Save
+                TODO last save datetime, auto save time, save game, export/import save, delete save
             </div>
             <div class="optionViewSection">
                 TODO Game title, game version, game patch notes, author name, cultivation wiki page
@@ -35,9 +36,9 @@ const LANGS = [
             </div>
             <div class="optionViewSection">
                 <a href="https://github.com/bencecile/CultivationSamsara" target="_blank">
-                    {{ State.lang.githubLink }}
+                    {{ State.lang.messages.github.link }}
                 </a>
-                <p>{{ State.lang.githubIssue }}</p>
+                <p>{{ State.lang.messages.github.issue }}</p>
             </div>
         </div>
     </PopupWindow>

@@ -7,18 +7,19 @@ defineProps<{
 </script>
 
 <template>
-    <div class="ageDisplay">
-        <div v-if="age.years > 0">
-            {{ age.years }}{{ State.lang.ageYears }}
-        </div>
-        <div>
-            {{ age.days }}{{ State.lang.ageDays }}
-        </div>
-    </div>
+    <span class="ageDisplay">
+        <span v-if="age.years > 0">
+            {{ age.years }}{{ State.lang.units.time.year }}
+        </span>
+        <span>
+            {{ age.days }}{{ State.lang.units.time.day }}
+        </span>
+    </span>
 </template>
 
 <style scoped>
 .ageDisplay {
-    display: inline;
+    display: flex;
+    gap: 0.5em;
 }
 </style>

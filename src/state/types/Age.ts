@@ -8,7 +8,7 @@ export default class Age {
     }
 
     constructor(totalDays: number) {
-        this.totalDays = totalDays;
+        this.totalDays = Math.floor(totalDays);
     }
     static asYears(years: number, days: number): Age {
         return new Age(years * 365 + days);
@@ -16,12 +16,5 @@ export default class Age {
 
     addDay(): Age {
         return new Age(this.totalDays + 1);
-    }
-
-    add(other: Age): Age {
-        return new Age(this.totalDays + other.totalDays);
-    }
-    sub(other: Age): Age {
-        return new Age(this.totalDays - other.totalDays);
     }
 }

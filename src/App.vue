@@ -19,7 +19,7 @@ ShortcutController.addKeyFn("o", toggleOptions);
         <CharStateView />
         <ActionView />
         <div id="menuButtons">
-            <button class="menuButton" @click="toggleOptions">{{ State.lang.options }}</button>
+            <button class="menuButton" @click="toggleOptions">{{ State.lang.titles.options }}</button>
         </div>
     </div>
     <OptionView v-if="isOptionsVisible" @close-clicked="toggleOptions" />

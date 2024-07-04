@@ -2,7 +2,7 @@ import State from "@/state";
 import { Processor } from "../GameController";
 import SaveController from "../SaveController";
 
-export default class AutoSaveProcessor implements Processor {
+class AutoSaveProcessor implements Processor {
     readonly name = "AutoSaveProcessor";
 
     process(deltaMs: number): void {
@@ -11,6 +11,7 @@ export default class AutoSaveProcessor implements Processor {
         }
     }
 }
+export default new AutoSaveProcessor();
 
 function needToAutoSave(): boolean {
     if (State.lastSaveDate === undefined)

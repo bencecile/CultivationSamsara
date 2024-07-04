@@ -1,5 +1,6 @@
-import { LangName } from "@/i18n/Language";
+import { LANG_MAP, LangName } from "@/i18n/Language";
 import State from "@/state";
+import SaveController from "./SaveController";
 
 class LangController {
     chooseLangOfUser() {
@@ -14,7 +15,13 @@ class LangController {
                 return LangName.Ja;
             return LangName.En;
         })();
-        State.setLang(langName);
+        this.setLang(langName, false);
+    }
+
+    setLang(lang: LangName, willSave: boolean) {
+        State.setLang(lang);
+        if (willSave)
+            SaveController.saveSaveData();
     }
 }
 export default new LangController();
