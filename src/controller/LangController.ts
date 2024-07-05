@@ -1,4 +1,4 @@
-import { LANG_MAP, LangName } from "@/i18n/Language";
+import { LangName } from "@/i18n/Language";
 import State from "@/state";
 import SaveController from "./SaveController";
 

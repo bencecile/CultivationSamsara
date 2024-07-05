@@ -4,22 +4,28 @@ import { Job } from '@/state/ActionState';
 import { TimeUnit } from "@/state/types/TimeUnit";
 import GoldDisplay from "./GoldDisplay.vue";
 import PerTimeDisplay from "./PerTimeDisplay.vue";
+import { computed } from 'vue';
 
-defineProps<{
+const props = defineProps<{
     job: Job,
 }>();
+
+const levelBackground = computed(() => {
+    const percent = Math.floor(props.job.currentXp / props.job.xpToLevel * 100);
+    return `linear-gradient(0.25turn, var(--highlight-blue) ${percent}%, transparent ${percent}% )`
+})
 </script>
 
 <template>
     <div class="jobItem" :class="{ active: State.action.activeJob == job.name }">
         <div>{{ State.lang.enums[job.name] }}</div>
-        <div class="levelColumn">
+        <div class="levelColumn" :style="{ background: levelBackground }">
             <div class="levelDisplay">
                 <span>{{ State.lang.titles.level }}</span>
                 <span>{{ job.level }}</span>
             </div>
             <div class="levelXp">
-                <span>{{ State.lang.titles.xp }}</span>
+                <span v-if="State.meta.isLandscape">{{ State.lang.titles.xp }}</span>
                 <span>{{ job.currentXp }} / {{ job.xpToLevel }}</span>
                 <PerTimeDisplay :timeUnit="TimeUnit.Day">
                     {{ job.xpGain }}
@@ -56,6 +62,7 @@ defineProps<{
     padding: 0 0.5em;
     border-right: 3px solid black;
     border-left: 3px solid black;
+    text-shadow: 1px 1px 2px white;
 }
 
 .jobItem>.levelColumn>.levelDisplay {

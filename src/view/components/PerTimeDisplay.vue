@@ -13,12 +13,12 @@ withDefaults(defineProps<{
 </script>
 
 <template>
-    <span class="perSecondDisplay" :class="{ wide: State.lang.isWide, positive: isPositive }">
-        <span v-if="includeBrackets">{{ State.lang.punctuation.leftParentheses }}</span>
+    <span class="perSecondDisplay" :class="{ wide: State.lang.isWide, negative: !isPositive }">
+        <span v-if="includeBrackets">(</span>
         <slot></slot>
-        <span class="slash">{{ State.lang.punctuation.slash }}</span>
+        <span class="slash">/</span>
         <span>{{ State.lang.units.time[timeUnit] }}</span>
-        <span v-if="includeBrackets">{{ State.lang.punctuation.rightParentheses }}</span>
+        <span v-if="includeBrackets">)</span>
     </span>
 </template>
 
@@ -26,20 +26,14 @@ withDefaults(defineProps<{
 .perSecondDisplay {
     display: flex;
     padding: 0 0.1em;
-    transform: skewX(-20deg);
+    font-weight: bold;
 }
 
-.perSecondDisplay.positive {
-    transform: skewX(0);
-    font-weight: bold;
+.perSecondDisplay.negative {
+    transform: skewX(-20deg);
 }
 
 .perSecondDisplay>.slash {
     padding: 0 0.3em;
-}
-
-.perSecondDisplay.wide,
-.perSecondDisplay.wide>.slash {
-    padding: 0;
 }
 </style>

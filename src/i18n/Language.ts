@@ -55,7 +55,6 @@ export default class Language {
     readonly punctuation = {
         get leftParentheses(): string { return LangMap.punctuation.leftParentheses[currentLang.value] },
         get rightParentheses(): string { return LangMap.punctuation.rightParentheses[currentLang.value] },
-        get slash(): string { return LangMap.punctuation.slash[currentLang.value] },
     };
 
     readonly titles = {
@@ -162,12 +161,6 @@ export namespace LangMap {
             [LangName.ZhT]: "）",
             [LangName.En]: ")",
             [LangName.Ja]: "）"
-        },
-        slash: {
-            [LangName.ZhS]: "／",
-            [LangName.ZhT]: "／",
-            [LangName.En]: "/",
-            [LangName.Ja]: "／"
         },
     };
 
