@@ -1,112 +1,7 @@
 import { GameLocation } from "@/state/CharacterState";
 import { JobName } from "@/state/ActionState";
 import { TimeUnit } from "@/state/types/TimeUnit";
-
-export default interface Language {
-    readonly lang: LangName;
-    get isWide(): boolean;
-    readonly nameOfLang: string;
-    readonly gameName: string;
-
-    readonly enums: {
-        readonly [JobName.Farmer]: string;
-        readonly [GameLocation.MountainVillage]: string;
-    };
-
-    readonly messages: {
-        readonly flowTime: {
-            readonly continue: string;
-            readonly pause: string;
-        };
-        readonly github: {
-            readonly link: string;
-            readonly issue: string;
-        }
-    };
-
-    readonly punctuation: {
-        readonly leftParentheses: string;
-        readonly rightParentheses: string;
-        readonly slash: string;
-    };
-
-    readonly titles: {
-        readonly actions: string;
-        readonly age: string;
-        readonly gold: string;
-        readonly goldIncomePerDay: string;
-        readonly jobs: string;
-        readonly language: string;
-        readonly location: string;
-        readonly options: string;
-    };
-
-    readonly units: {
-        readonly gold: {
-            readonly gold: string;
-            readonly silver: string;
-            readonly copper: string;
-        };
-        readonly time: {
-            readonly [TimeUnit.Second]: string;
-            readonly [TimeUnit.Day]: string;
-            readonly [TimeUnit.Year]: string;
-        };
-    };
-}
-
-interface LanguageMap {
-    readonly nameOfLang: LangString;
-    readonly gameName: LangString;
-
-    readonly enums: {
-        readonly [JobName.Farmer]: LangString;
-        readonly [GameLocation.MountainVillage]: LangString;
-    };
-
-    readonly messages: {
-        readonly flowTime: {
-            readonly continue: LangString;
-            readonly pause: LangString;
-        };
-        readonly github: {
-            readonly link: LangString;
-            readonly issue: LangString;
-        }
-    };
-
-    readonly punctuation: {
-        readonly leftParentheses: LangString;
-        readonly rightParentheses: LangString;
-        readonly slash: LangString;
-    };
-
-    readonly titles: {
-        readonly actions: LangString;
-        readonly age: LangString;
-        readonly gold: LangString;
-        readonly goldIncomePerDay: LangString;
-        readonly jobs: LangString;
-        readonly language: LangString;
-        readonly location: LangString;
-        readonly options: LangString;
-    };
-
-    readonly units: {
-        readonly gold: {
-            readonly gold: LangString;
-            readonly silver: LangString;
-            readonly copper: LangString;
-        };
-        readonly time: {
-            readonly day: LangString;
-            readonly second: LangString;
-            readonly year: LangString;
-        };
-    };
-
-    getLanguage(lang: LangName): Language;
-}
+import { ref } from "vue";
 
 export enum LangName {
     ZhS = "zh-hans",
@@ -115,26 +10,106 @@ export enum LangName {
     Ja = "ja",
 }
 
-export const LANG_MAP: LanguageMap = {
-    nameOfLang: {
-        [LangName.ZhS]: "中文 - 简体",
-        [LangName.ZhT]: "中文 - 繁體",
+export interface LangString {
+    readonly [LangName.ZhS]: string;
+    readonly [LangName.ZhT]: string;
+    readonly [LangName.En]: string;
+    readonly [LangName.Ja]: string
+}
+
+let currentLang = ref(LangName.En);
+export default class Language {
+    get currentLang(): LangName { return currentLang.value }
+    set currentLang(newLang: LangName) { currentLang.value = newLang; }
+    get isWide(): boolean {
+        switch (currentLang.value) {
+            case LangName.ZhS:
+            case LangName.ZhT:
+            case LangName.Ja:
+                return true;
+            case LangName.En:
+                return false;
+        }
+    }
+
+    get nameOfLang(): string { return LangMap.nameOfLang[currentLang.value] }
+    get gameName(): string { return LangMap.gameName[currentLang.value] }
+
+    enums = {
+        get [JobName.Farmer](): string { return LangMap.enums[JobName.Farmer][currentLang.value] },
+        get [JobName.Woodcutter](): string { return LangMap.enums[JobName.Woodcutter][currentLang.value] },
+        get [GameLocation.MountainVillage](): string { return LangMap.enums[GameLocation.MountainVillage][currentLang.value] },
+    };
+
+    readonly messages = {
+        flowTime: {
+            get continue(): string { return LangMap.messages.flowTime.continue[currentLang.value] },
+            get pause(): string { return LangMap.messages.flowTime.pause[currentLang.value] },
+        },
+        github: {
+            get link(): string { return LangMap.messages.github.link[currentLang.value] },
+            get issue(): string { return LangMap.messages.github.issue[currentLang.value] },
+        }
+    };
+
+    readonly punctuation = {
+        get leftParentheses(): string { return LangMap.punctuation.leftParentheses[currentLang.value] },
+        get rightParentheses(): string { return LangMap.punctuation.rightParentheses[currentLang.value] },
+        get slash(): string { return LangMap.punctuation.slash[currentLang.value] },
+    };
+
+    readonly titles = {
+        get actions(): string { return LangMap.titles.actions[currentLang.value] },
+        get age(): string { return LangMap.titles.age[currentLang.value] },
+        get gold(): string { return LangMap.titles.gold[currentLang.value] },
+        get jobs(): string { return LangMap.titles.jobs[currentLang.value] },
+        get language(): string { return LangMap.titles.language[currentLang.value] },
+        get level(): string { return LangMap.titles.level[currentLang.value] },
+        get location(): string { return LangMap.titles.location[currentLang.value] },
+        get options(): string { return LangMap.titles.options[currentLang.value] },
+        get xp(): string { return LangMap.titles.xp[currentLang.value] },
+    };
+
+    readonly units = {
+        gold: {
+            get gold(): string { return LangMap.units.gold.gold[currentLang.value] },
+            get silver(): string { return LangMap.units.gold.silver[currentLang.value] },
+            get copper(): string { return LangMap.units.gold.copper[currentLang.value] },
+        },
+        time: {
+            get [TimeUnit.Second](): string { return LangMap.units.time[TimeUnit.Second][currentLang.value] },
+            get [TimeUnit.Day](): string { return LangMap.units.time[TimeUnit.Day][currentLang.value] },
+            get [TimeUnit.Year](): string { return LangMap.units.time[TimeUnit.Year][currentLang.value] },
+        },
+    };
+}
+
+export namespace LangMap {
+    export const nameOfLang: LangString = {
+        [LangName.ZhS]: "简体中文",
+        [LangName.ZhT]: "繁體中文",
         [LangName.En]: "English",
         [LangName.Ja]: "日本語"
-    },
-    gameName: {
+    };
+    export const gameName: LangString = {
         [LangName.ZhS]: "修炼：轮回到极天",
         [LangName.ZhT]: "修煉：輪迴到極天",
         [LangName.En]: "Cultivation: Samsara to the Polar Heavens",
         [LangName.Ja]: "修煉：輪廻に極天"
-    },
+    };
 
-    enums: {
+    export const enums = {
         [JobName.Farmer]: {
             [LangName.ZhS]: "农民",
             [LangName.ZhT]: "農民",
             [LangName.En]: "Farmer",
             [LangName.Ja]: "農民"
+        },
+        [JobName.Woodcutter]: {
+            [LangName.ZhS]: "樵夫",
+            [LangName.ZhT]: "樵夫",
+            [LangName.En]: "Woodcutter",
+            [LangName.Ja]: "木樵"
         },
         [GameLocation.MountainVillage]: {
             [LangName.ZhS]: "山村",
@@ -142,9 +117,9 @@ export const LANG_MAP: LanguageMap = {
             [LangName.En]: "Mountain Village",
             [LangName.Ja]: "山村"
         },
-    },
+    }
 
-    messages: {
+    export const messages = {
         flowTime: {
             continue: {
                 [LangName.ZhS]: "开始时流",
@@ -153,8 +128,8 @@ export const LANG_MAP: LanguageMap = {
                 [LangName.Ja]: "時流を始める"
             },
             pause: {
-                [LangName.ZhS]: "止住时流",
-                [LangName.ZhT]: "止住時流",
+                [LangName.ZhS]: "停止时流",
+                [LangName.ZhT]: "停止時流",
                 [LangName.En]: "Stop the Flow of Time",
                 [LangName.Ja]: "時流を止める"
             },
@@ -173,9 +148,9 @@ export const LANG_MAP: LanguageMap = {
                 [LangName.Ja]: "問題が見つかったら（バグ、翻訳など）、私が知るためにissueを作ってください。"
             },
         },
-    },
+    };
 
-    punctuation: {
+    export const punctuation = {
         leftParentheses: {
             [LangName.ZhS]: "（",
             [LangName.ZhT]: "（",
@@ -194,9 +169,9 @@ export const LANG_MAP: LanguageMap = {
             [LangName.En]: "/",
             [LangName.Ja]: "／"
         },
-    },
+    };
 
-    titles: {
+    export const titles = {
         actions: {
             [LangName.ZhS]: "行动",
             [LangName.ZhT]: "行動",
@@ -215,12 +190,6 @@ export const LANG_MAP: LanguageMap = {
             [LangName.En]: "Gold",
             [LangName.Ja]: "お金"
         },
-        goldIncomePerDay: {
-            [LangName.ZhS]: "每天金钱收入",
-            [LangName.ZhT]: "每天金錢收入",
-            [LangName.En]: "Gold Income Per Day",
-            [LangName.Ja]: "日ごとに収入お金"
-        },
         jobs: {
             [LangName.ZhS]: "职业",
             [LangName.ZhT]: "職業",
@@ -232,6 +201,12 @@ export const LANG_MAP: LanguageMap = {
             [LangName.ZhT]: "語言",
             [LangName.En]: "Language",
             [LangName.Ja]: "言語"
+        },
+        level: {
+            [LangName.ZhS]: "等级",
+            [LangName.ZhT]: "等級",
+            [LangName.En]: "Level",
+            [LangName.Ja]: "レベル"
         },
         location: {
             [LangName.ZhS]: "地方",
@@ -245,9 +220,15 @@ export const LANG_MAP: LanguageMap = {
             [LangName.En]: "Options",
             [LangName.Ja]: "設定"
         },
-    },
+        xp: {
+            [LangName.ZhS]: "经验值",
+            [LangName.ZhT]: "經驗值",
+            [LangName.En]: "XP",
+            [LangName.Ja]: "経験値"
+        },
+    };
 
-    units: {
+    export const units = {
         gold: {
             gold: {
                 [LangName.ZhS]: "金",
@@ -288,76 +269,5 @@ export const LANG_MAP: LanguageMap = {
                 [LangName.Ja]: "年"
             },
         },
-    },
-
-    getLanguage(lang: LangName): Language {
-        return {
-            lang,
-            get isWide(): boolean {
-                switch (this.lang) {
-                    case LangName.ZhS:
-                    case LangName.ZhT:
-                    case LangName.Ja:
-                        return true;
-                    case LangName.En:
-                        return false;
-                }
-            },
-            nameOfLang: this.nameOfLang[lang],
-            gameName: this.gameName[lang],
-
-            enums: {
-                [JobName.Farmer]: this.enums[JobName.Farmer][lang],
-                [GameLocation.MountainVillage]: this.enums[GameLocation.MountainVillage][lang],
-            },
-
-            messages: {
-                flowTime: {
-                    continue: this.messages.flowTime.continue[lang],
-                    pause: this.messages.flowTime.pause[lang],
-                },
-                github: {
-                    link: this.messages.github.link[lang],
-                    issue: this.messages.github.issue[lang],
-                },
-            },
-
-            punctuation: {
-                leftParentheses: this.punctuation.leftParentheses[lang],
-                rightParentheses: this.punctuation.rightParentheses[lang],
-                slash: this.punctuation.slash[lang],
-            },
-
-            titles: {
-                actions: this.titles.actions[lang],
-                age: this.titles.age[lang],
-                gold: this.titles.gold[lang],
-                goldIncomePerDay: this.titles.goldIncomePerDay[lang],
-                jobs: this.titles.jobs[lang],
-                language: this.titles.language[lang],
-                location: this.titles.location[lang],
-                options: this.titles.options[lang],
-            },
-
-            units: {
-                gold: {
-                    gold: this.units.gold.gold[lang],
-                    silver: this.units.gold.silver[lang],
-                    copper: this.units.gold.copper[lang],
-                },
-                time: {
-                    [TimeUnit.Second]: this.units.time[TimeUnit.Second][lang],
-                    [TimeUnit.Day]: this.units.time[TimeUnit.Day][lang],
-                    [TimeUnit.Year]: this.units.time[TimeUnit.Year][lang],
-                },
-            },
-        }
-    }
-};
-
-export abstract class LangString {
-    readonly abstract [LangName.ZhS]: string;
-    readonly abstract [LangName.ZhT]: string;
-    readonly abstract [LangName.En]: string;
-    readonly abstract [LangName.Ja]: string;
+    };
 }

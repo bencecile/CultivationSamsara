@@ -2,13 +2,13 @@
 import State from '@/state';
 import LangController from "@/controller/LangController";
 import PopupWindow from "./components/PopupWindow.vue";
-import { LANG_MAP, LangName } from "@/i18n/Language";
+import { LangMap, LangName } from "@/i18n/Language";
 
 const LANGS = [
-    { lang: LangName.ZhS, value: LANG_MAP.nameOfLang[LangName.ZhS] },
-    { lang: LangName.ZhT, value: LANG_MAP.nameOfLang[LangName.ZhT] },
-    { lang: LangName.En, value: LANG_MAP.nameOfLang[LangName.En] },
-    { lang: LangName.Ja, value: LANG_MAP.nameOfLang[LangName.Ja] },
+    { lang: LangName.ZhS, value: LangMap.nameOfLang[LangName.ZhS] },
+    { lang: LangName.ZhT, value: LangMap.nameOfLang[LangName.ZhT] },
+    { lang: LangName.En, value: LangMap.nameOfLang[LangName.En] },
+    { lang: LangName.Ja, value: LangMap.nameOfLang[LangName.Ja] },
 ];
 </script>
 
@@ -17,10 +17,11 @@ const LANGS = [
         <div id="optionView">
             <div class="optionViewSection">
                 <div id="optionViewLanguageHeader">{{ State.lang.titles.language }}</div>
-                <button v-for="{ lang, value } in LANGS" class="langButton"
-                    :class="{ selectedLang: lang === State.lang.lang }" @click="LangController.setLang(lang, true)">
+                <div v-for="{ lang, value } in LANGS" class="button langButton" :lang="lang"
+                    :class="{ selectedLang: lang === State.lang.currentLang }"
+                    @click="LangController.setLang(lang, true)">
                     {{ value }}
-                </button>
+                </div>
             </div>
             <div class="optionViewSection">
                 TODO Game options
@@ -47,33 +48,33 @@ const LANGS = [
 <style scoped>
 #optionView {
     display: grid;
-    gap: 10px;
+    gap: 0.5em;
 }
 
 .optionViewSection {
     display: block;
-    width: calc(100% - 20px - 4px);
+    width: calc(100% - 1em - 4px);
     border: 2px solid black;
     border-radius: 5px;
-    padding: 5px 10px;
+    padding: 0.25em 0.5em;
 }
 
 #optionViewLanguageHeader {
     font-size: 1.2em;
     text-align: center;
     width: 100%;
-    margin-bottom: 10px;
+    margin-bottom: 0.5em;
 }
 
 .selectedLang {
-    background: radial-gradient(transparent 0, transparent 50%, black);
+    background: radial-gradient(transparent 0, transparent 50%, var(--highlight-blue));
 }
 
 .langButton {
     display: block;
     width: 7.5em;
     height: 2em;
-    margin-bottom: 5px;
+    margin-bottom: 0.25em;
     margin-left: auto;
     margin-right: auto;
 }
@@ -86,14 +87,14 @@ const LANGS = [
 /* Portrait */
 @media only screen and (max-aspect-ratio: 1/1) {
     #optionView {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr;
     }
 }
 
 /* Landscape */
 @media only screen and (min-aspect-ratio: 1/1) {
     #optionView {
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
     }
 }
 </style>

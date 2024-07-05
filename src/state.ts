@@ -1,6 +1,6 @@
 import ActionState from "./state/ActionState";
 import MetaState from "./state/MetaState";
-import Language, { LANG_MAP, LangName } from "@/i18n/Language";
+import Language, { LangName } from "@/i18n/Language";
 import { reactive } from 'vue';
 import OptionState from "./state/OptionState";
 import CharacterState from "./state/CharacterState";
@@ -13,10 +13,10 @@ export class GameState {
     readonly meta = new MetaState();
     readonly option = new OptionState();
     readonly time = new TimeState();
-    lang: Language = LANG_MAP.getLanguage(LangName.En);
+    lang: Language = new Language();
 
     setLang(lang: LangName) {
-        this.lang = LANG_MAP.getLanguage(lang);
+        this.lang.currentLang = lang;
         document.documentElement.lang = lang;
         document.title = this.lang.gameName;
     }

@@ -40,7 +40,7 @@ function fromGameState(): SaveData {
         throw new TypeError("lastSaveData was still falsey");
 
     return {
-        lang: State.lang.lang,
+        lang: State.lang.currentLang,
         lastSaveDate: State.lastSaveDate.getTime(),
     };
 }

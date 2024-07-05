@@ -10,8 +10,8 @@ defineProps<{
         <div class="popupWindow" @click="(e) => e.stopPropagation()">
             <div class="popupWindowBanner">
                 <div class="popupWindowTitle">{{ title }}</div>
-                <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 32 32" viewBox="0 0 32 32"
-                    @click="$emit('closeClicked')" class="popupWindowCloseButton">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" @click="$emit('closeClicked')"
+                    class="button popupWindowCloseButton">
                     <path
                         d="M18.12109,16L31.06055,3.06055c0.58594-0.58545,0.58594-1.53564,0-2.12109c-0.58594-0.58594-1.53516-0.58594-2.12109,0L16,13.87891L3.06055,0.93945c-0.58594-0.58594-1.53516-0.58594-2.12109,0c-0.58594,0.58545-0.58594,1.53564,0,2.12109L13.87891,16L0.93945,28.93945c-0.58594,0.58545-0.58594,1.53564,0,2.12109C1.23242,31.35352,1.61621,31.5,2,31.5s0.76758-0.14648,1.06055-0.43945L16,18.12109l12.93945,12.93945C29.23242,31.35352,29.61621,31.5,30,31.5s0.76758-0.14648,1.06055-0.43945c0.58594-0.58545,0.58594-1.53564,0-2.12109L18.12109,16z">
                     </path>
@@ -55,8 +55,7 @@ defineProps<{
     background: white;
     grid-template-columns: 1fr 1.5em;
     align-items: center;
-    margin: 5px 10px 0 10px;
-    padding-bottom: 5px;
+    padding: 0.25em 0.5em;
     border-bottom: 2px solid black;
 }
 
@@ -72,8 +71,9 @@ defineProps<{
     grid-column: 2;
     grid-row: 1;
     z-index: 3;
-    height: 1.3em;
-    width: 1.3em;
+    height: 1em;
+    width: 1em;
+    padding: 0.25em;
 }
 
 .popupWindowCloseButton:hover {
@@ -81,7 +81,7 @@ defineProps<{
 }
 
 .popupWindowBody {
-    padding: 10px;
+    padding: 0.5em;
 }
 
 /* Portrait */

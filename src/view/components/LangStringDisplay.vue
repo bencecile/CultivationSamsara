@@ -15,7 +15,7 @@ const props = withDefaults(defineProps<{
 });
 
 let isBeforeContent = computed(() => {
-    switch (State.lang.lang) {
+    switch (State.lang.currentLang) {
         case LangName.ZhS:
         case LangName.ZhT:
             return props.chBeforeContent;

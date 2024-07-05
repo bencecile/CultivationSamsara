@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import State from '@/state';
-import JobItem from "./action_components/JobItem.vue";
+import ActionController from "@/controller/ActionController";
+import JobItem from "./components/JobItem.vue";
 import { JobName } from '@/state/ActionState';
 
 const jobs = [
@@ -13,10 +14,9 @@ const jobs = [
         <div id="actionHeader">{{ State.lang.titles.actions }}</div>
         <div id="jobHeader">
             <div>{{ State.lang.titles.jobs }}</div>
-            <div>{{ State.lang.titles.goldIncomePerDay }}</div>
         </div>
         <div id="jobList">
-            <JobItem :job="job" v-for="job in jobs" />
+            <JobItem :job="job" v-for="job in jobs" @click="ActionController.toggleSelectedJob(job.name)" />
         </div>
     </div>
 </template>
@@ -33,9 +33,7 @@ const jobs = [
 }
 
 #jobHeader {
-    display: grid;
     width: 100%;
-    grid-template-columns: 1fr 1fr;
     font-size: 1.2em;
     font-weight: bold;
 }

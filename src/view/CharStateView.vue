@@ -68,12 +68,12 @@ const timeFlowingString = computed(() => {
     font-weight: bold;
     align-self: center;
     cursor: pointer;
-    background: linear-gradient(0.25turn, transparent, #3f87a6, transparent) !important;
-    text-shadow: white 1px 1px 0.1em;
+    background: linear-gradient(0.25turn, transparent, var(--highlight-blue), transparent) !important;
+    text-shadow: white 0 0 0.2em;
 }
 
 .timeFlowButton.running {
-    background: linear-gradient(0.25turn, transparent, #f69d3c, transparent) !important;
+    background: linear-gradient(0.25turn, transparent, var(--highlight-orange), transparent) !important;
 }
 
 .rows {

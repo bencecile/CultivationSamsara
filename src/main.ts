@@ -13,11 +13,11 @@ import ShortcutController from './controller/ShortcutController';
 import TimeController from './controller/TimeController';
 
 MetaController.setWindowResize();
-ActionController.unlockFarmer();
 
 if (!SaveController.loadSaveData()) {
     // Only in the case of no save data
     LangController.chooseLangOfUser();
+    ActionController.unlockFarmer();
 }
 
 const app = createApp(App);
